@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import os
+#  from uwsgidecorators import thread
 
 app = Flask(__name__)
 
@@ -11,6 +12,23 @@ def init_fifo():
         os.mkfifo(FIFO_TX_FILE)
     if not os.path.exists(FIFO_RX_FILE):
         os.mkfifo(FIFO_RX_FILE)
+
+#  @thread
+#  def uwsgi_task(duration):
+#      for i in range(duration):
+#          print("Working in uwsgi thread... {}/{}".format(i + 1, duration))
+#          time.sleep(1)
+#
+def listen_ros_command(duration):
+    if not os.path.exists(FIFO_RX_FILE):
+        return
+
+    while True:
+        with open(FIFO_RX_FILE, 'r') as fifo:
+            line = fifo.readline()
+            print(line)
+            if line.startswith('finish'):
+                print('finish ros simulation')
    
 @app.route('/')
 def index():
