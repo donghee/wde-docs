@@ -52,6 +52,12 @@ def new_simulation():
 @app.route('/evaluate', methods=['POST'])
 def evaluate_device():
     #  print(request.form)
+    device = request.form['device']
+    body = request.form['body']
+    task = request.form['task']
+    # TODO: change me
+    joint = 'joint1'
+    url = f'/?device={device}&body={body}&joint={joint}'
     editor = request.form['editor']
     with open('/tmp/new_code.py', 'w') as f:
         f.write(editor)
@@ -61,7 +67,7 @@ def evaluate_device():
         f.write('start')
         print('start ros simulation')
 
-    return render_template('result.html')
+    return render_template('result.html', url=url)
 
 if __name__ == '__main__':
     init_fifo()
