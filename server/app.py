@@ -40,11 +40,11 @@ def new_simulation():
     code1 = ''
     code2 = ''
     current_path = os.path.dirname(os.path.abspath(__file__))
-    with open(current_path + '/app.py', 'r') as f:
+    with open(current_path + '/control_node_1.py', 'r') as f:
         code0 = f.read()
-    with open(current_path + '/../run.sh', 'r') as f:
+    with open(current_path + '/control_node_2.py', 'r') as f:
         code1 = f.read()
-    with open(current_path + '/../attach.sh', 'r') as f:
+    with open(current_path + '/control_node_3.py', 'r') as f:
         code2 = f.read()
 
     return render_template('new.html', code0=code0, code1=code1, code2=code2)
