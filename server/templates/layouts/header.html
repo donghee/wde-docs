@@ -1,0 +1,20 @@
+<header>
+  <div class="flex justify-center">
+    <div class="mx-auto max-w-7xl">
+      {% if subject == 'usability' %} {% set subject_ko = '사용성' %} {% endif %}
+      {% if subject == 'wearability' %} {% set subject_ko = '착용성' %} {% endif %}
+      {% if subject == 'interactivity' %} {% set subject_ko = '상호작용성' %} {% endif %}
+      {% if subject == 'visualization' %} {% set subject_ko = '시각화' %} {% endif %}
+      <h1
+        class="text-center text-3xl font-bold leading-tight tracking-tight text-gray-900"
+      >
+        {{subject_ko}} 평가
+      </h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="text-center lead mb-4">
+          웨어러블 디바이스의 {{subject_ko}} 평가
+        </p>
+      </div>
+    </div>
+  </div>
+</header>

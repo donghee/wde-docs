@@ -1,18 +1,186 @@
-평가 결과를 보기 까지 3분 소요가 됩니다. 
+<div>
+  <!-- 평가 결과 -->
+  <h3 class="text-lg font-semibold leading-6 text-gray-900">평가 결과</h3>
 
-3분후 다음 링크로 결과를 확인 하세요.
+  <!-- 점수 -->
+  <div class="mt-5">
+    <h1 class="text-lg font-medium tracking-tight text-gray-500 mr-2">
+      총 점수
+    </h1>
+    <p class="text-2xl font-semibold text-gray-900">{{totalscore}}</p>
+  </div>
 
-<br/>
-<br/>
-<br/>
-<img src="https://htmx.org/img/bars.svg"/> 
+  <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 mt-5 mb-5">
+    <div
+      class="bg-blue-600 text-sm font-medium text-blue-100 text-center p-1 leading-none rounded-full"
+      style="width: {{totalscore*100}}%"
+    >
+      {{totalscore*100}}%
+    </div>
+  </div>
 
-<br/>
-<a class="no-underline hover:underline" href="/usability{{url}}">사용성 결과 보기</a>
-<br/>
-<a class="no-underline hover:underline" href="/wearability{{url}}">착용성 결과 보기</a>
-<br/>
-<a class="no-underline hover:underline" href="/interativity{{url}}">상호작용성 결과 보기</a>
-<br/>
-<a class="no-underline hover:underline" href="/visualization{{url}}">시각화 결과 보기</a>
-<br/>
+  <!-- 세부 점수 -->
+  <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+    >
+      <dt>
+        <div class="absolute rounded-md bg-indigo-500 p-3">
+          <svg
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+            />
+          </svg>
+        </div>
+        <p class="ml-16 truncate text-sm font-medium text-gray-500">
+          사용성 평가 점수
+        </p>
+      </dt>
+      <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+        <p class="text-2xl font-semibold text-gray-900">
+          <a
+            class="no-underline hover:underline"
+            href="/usability/{{url}}"
+            target="_blank"
+          >
+            {{usability}}
+          </a>
+        </p>
+        <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a
+              href="/usability/{{url}}"
+              class="font-medium text-indigo-600 hover:text-indigo-500"
+              target="_blank"
+              >자세히 보기</a
+            >
+          </div>
+        </div>
+      </dd>
+    </div>
+    <div
+      class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+    >
+      <dt>
+        <div class="absolute rounded-md bg-indigo-500 p-3">
+          <svg
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,5A7,7 0 0,0 5,12A7,7 0 0,0 12,19A7,7 0 0,0 19,12A7,7 0 0,0 12,5Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 4.5c-.8 0-1.5-.7-1.5-1.5S11.2 9 12 9s1.5.7 1.5 1.5S12.8 11.5 12 11.5z"
+            />
+          </svg>
+        </div>
+        <p class="ml-16 truncate text-sm font-medium text-gray-500">
+          착용성 평가 점수
+        </p>
+      </dt>
+      <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+        <p class="text-2xl font-semibold text-gray-900">
+          <a
+            class="no-underline hover:underline"
+            href="/wearability/{{url}}"
+            target="_blank"
+            >{{wearability}}
+          </a>
+        </p>
+        <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a
+              href="/wearability/{{url}}"
+              class="font-medium text-indigo-600 hover:text-indigo-500"
+              target="_blank"
+              >자세히 보기</a
+            >
+          </div>
+        </div>
+      </dd>
+    </div>
+    <div
+      class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+    >
+      <dt>
+        <div class="absolute rounded-md bg-indigo-500 p-3">
+          <svg
+            class="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M9,8L15,12L9,16V8Z"
+            />
+          </svg>
+        </div>
+        <p class="ml-16 truncate text-sm font-medium text-gray-500">
+          상호작용성 평가 점수
+        </p>
+      </dt>
+      <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
+        <p class="text-2xl font-semibold text-gray-900">
+          <a
+            class="no-underline hover:underline"
+            href="/interactivity/{{url}}"
+            target="_blank"
+          >
+            {{interactivity}}
+          </a>
+        </p>
+        <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+          <div class="text-sm">
+            <a
+              href="/interactivity/{{url}}"
+              class="font-medium text-indigo-600 hover:text-indigo-500"
+              target="_blank"
+              >자세히 보기</a
+            >
+          </div>
+        </div>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="mt-10">
+    <h3 class="text-base font-semibold leading-6 text-gray-900">평가 시각화</h3>
+    <figure class="max-w-lg mt-5">
+      <a href="/visualization/{{url}}" target="_blank">
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="{% if device =='upper' %} https://i.imgur.com/qkXDrVr.jpg {% else %} https://i.imgur.com/OYBtvWX.jpg {% endif %}"
+          alt="visualization"
+        />
+
+        <figcaption
+          class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"
+        >
+          자세히 보기
+        </figcaption>
+      </a>
+    </figure>
+  </div>
+</div>
