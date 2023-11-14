@@ -10,7 +10,10 @@
   <style></style>
   <body class="h-full">
     <div class="min-h-full">
-      {% include "layouts/nav.html" %}
+        <!-- content -->
+        {% block nav %} 
+          {% include "layouts/nav.html" %}
+        {% endblock %}
       <div class="py-10 space-y-10">
         <!-- header -->
         {% block header %} {% include "layouts/header.html" %} {% endblock %}
