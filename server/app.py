@@ -54,7 +54,7 @@ def evaluate_device():
     task = request.form["task"]
     code = request.form["code"]
     # TODO: change me
-    joint = "joint1"
+    joint = "joint3"
     url = f"?device={device}&body={body}&joint={joint}&task={task}&code=code{code}"
     editor = request.form["editor"]
     with open("/tmp/new_code.py", "w") as f:
@@ -62,8 +62,11 @@ def evaluate_device():
 
     # start ros launch
     with open(FIFO_TX_FILE, "w") as f:
-        f.write("start")
-        print("start simulation")
+        if device == "upper":
+            f.write("start upper ")
+        if device == "lower":
+            f.write("start lower ")
+        print(f"start simulation: {device}")
 
     #  ros launch
     with open(FIFO_RX_FILE, "r") as f:
@@ -73,13 +76,20 @@ def evaluate_device():
         else:
             print("error simulation")
 
+    if device == "upper":
+        os.system(f"cp /tmp/visualization-upper.csv ~/src/wde-visualization/web/static/{joint}.csv")
+        os.system(f"cp /tmp/interaction-upper.csv ~/src/wde-interactivity/interaction_control_node_1.csv")
+        os.system(f"cp /tmp/wearability-upper.csv ~/src/wde-wearability/device_1DOF/python/wearability/input.csv")        
+    if device == "lower":
+        os.system(f"cp /tmp/lower.csv ~/src/wde-visualization/web/static/{joint}.csv")
+
     r = requests.get(f"http://localhost/usability/score{url}")
     usability = r.text
     r = requests.get(f"http://localhost/wearability/score{url}")
     wearability = r.text
     r = requests.get(f"http://localhost/interactivity/score{url}")
     interactivity = r.text
-    totalscore = (float(usability) + float(wearability) + float(interactivity)) / 3
+    totalscore = round((float(usability) + float(wearability) + float(interactivity)) / 3, 1)
 
     return render_template("result.html", url=url, device=device, body=body, task=task, code=f"code{code}", totalscore=totalscore, usability=usability, wearability=wearability, interactivity=interactivity)
 
