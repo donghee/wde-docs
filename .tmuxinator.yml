@@ -1,11 +1,12 @@
 name: wde
-on_project_start: 
+on_project_start: cd ~/src/wde-docs && ./bootstrap.sh
 windows:
   - build:
       layout: even-horizontal
       panes:
         - cd ~/src/wde-docs && ./run.sh
         - cd ~/src/wde-interactivity/ && ./run.sh
+        - cd ~/src/wde-usability/ && ./run.sbcl.sh
         - cd ~/src/wde-usability/ && ./run.sh
         - cd ~/src/wde-visualization/ && ./run.sh
         - cd ~/src/wde-wearability/ && ./run.sh
