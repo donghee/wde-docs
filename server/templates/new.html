@@ -1,4 +1,4 @@
-{% extends "layouts/default.html" %} 
+{% extends "layouts/default.html" %}
 
 <!-- nav -->
 {% block nav %}
@@ -58,11 +58,11 @@
         </div>
         <div class="flex flex-shrink-0 items-center">
           <a href="/">
-          <img
-            class="h-8 w-auto"
-            src="https://i.imgur.com/nYA6oUS.png"
-            alt="웨어러블 디바이스 평가 시스템"
-          />
+            <img
+              class="h-8 w-auto"
+              src="https://i.imgur.com/nYA6oUS.png"
+              alt="웨어러블 디바이스 평가 시스템"
+            />
           </a>
         </div>
         <div class="hidden md:ml-6 md:flex md:space-x-8">
@@ -71,7 +71,7 @@
             class="inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium {% if subject =='home' %} border-indigo-500 text-gray-900 {% else %} border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 {% endif %}"
             >소개</a
           >
-         </div>
+        </div>
       </div>
       <div class="flex items-center">
         <div class="flex-shrink-0">
@@ -161,12 +161,6 @@
                 >
                   <option>body1</option>
                   <option>body2</option>
-                  <option>body3</option>
-                  <option>body4</option>
-                  <option>body5</option>
-                  <option>body6</option>
-                  <option>body7</option>
-                  <option>body8</option>
                 </select>
               </div>
             </div>
@@ -222,9 +216,9 @@
                   웨어러블 디바이스로 수행할 동작을 선택 하세요.
                 </p>
                 <div class="mt-6 space-y-3">
-                  <div class="flex items-center gap-x-3">
+                  <div id="task" class="flex items-center gap-x-3">
                     <input
-                      id="task-arm"
+                      id="task-input"
                       name="task"
                       type="radio"
                       value="arm"
@@ -232,23 +226,10 @@
                       checked
                     />
                     <label
+                      id="task-label"
                       for="task"
                       class="block text-sm font-medium leading-6 text-gray-900"
                       >확장, 굴곡</label
-                    >
-                  </div>
-                  <div class="flex items-center gap-x-3">
-                    <input
-                      id="task-gait"
-                      name="task"
-                      type="radio"
-                      value="gait"
-                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                    />
-                    <label
-                      for="task"
-                      class="block text-sm font-medium leading-6 text-gray-900"
-                      >7미터 걷기</label
                     >
                   </div>
                 </div>
@@ -268,7 +249,7 @@
                   <div class="flex space-x-4">
                     <div class="flex items-center gap-x-3">
                       <input
-                        id="code1"
+                        id="code1-input"
                         name="code"
                         type="radio"
                         value="1"
@@ -276,6 +257,7 @@
                         checked
                       />
                       <label
+                        id="code1-label"
                         for="code"
                         class="block text-sm font-medium leading-6 text-gray-900"
                         >제어 노드 #1</label
@@ -283,27 +265,32 @@
                     </div>
                     <div class="flex items-center gap-x-3">
                       <input
-                        id="code2"
+                        id="code2-input"
                         name="code"
                         type="radio"
                         value="2"
                         class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                       <label
+                        id="code2-label"
                         for="code"
                         class="block text-sm font-medium leading-6 text-gray-900"
                         >제어 노드 #2</label
                       >
                     </div>
-                    <div class="flex items-center gap-x-3">
+                    <div
+                      id="code3-wrapper"
+                      class="flex items-center gap-x-3 hidden"
+                    >
                       <input
-                        id="code3"
+                        id="code3-input"
                         name="code"
                         type="radio"
                         value="3"
                         class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       />
                       <label
+                        id="code3-label"
                         for="code"
                         class="block text-sm font-medium leading-6 text-gray-900"
                         >제어 노드 #3</label
@@ -367,16 +354,13 @@
     }
   }
 </script>
+
 <script async type="module">
   import { basicSetup, EditorView } from "@codemirror/codemirror/dist/index.js";
   import { python } from "@codemirror/lang-python/dist/index.js";
   import { oneDark } from "@codemirror/theme-one-dark/dist/index.js";
 
-  var codes = [
-    `#1\n{{code0|safe}}`,
-    `#2\n{{code1|safe}}`,
-    `#3\n{{code2|safe}}`,
-  ];
+  var codes = [`#1\n{{code0|safe}}`, `#2\n{{code1|safe}}`];
 
   const editor = new EditorView({
     doc: codes[0],
@@ -387,7 +371,7 @@
   window.editor = editor;
 
   // code editor: add event listener to select code
-  var codeElements = document.getElementsByName("example-code");
+  var codeElements = document.getElementsByName("code");
   for (var i = 0; i < codeElements.length; i++) {
     codeElements[i].code = codes[i];
     codeElements[i].addEventListener(
@@ -404,5 +388,49 @@
       false,
     );
   }
+
+  htmx.onLoad(function (elt) {
+    document.getElementById("device-upper").checked = true;
+    document.getElementById("task-input").checked = true;
+    document.getElementById("task-input").value = "arm";
+    document.getElementById("task-label").innerHTML = "확장, 굴곡";
+    document.getElementById("editor").classList.remove("hidden");
+
+    document.getElementById("code3-wrapper").classList.add("hidden");
+  });
+
+  htmx.on("#device-upper", "click", function (evt) {
+    updateTask("arm");
+  });
+
+  htmx.on("#device-lower", "click", function (evt) {
+    updateTask("gait");
+  });
+
+  function updateTask(task) {
+    if (task == "arm") {
+      document.getElementById("task-input").value = "arm";
+      document.getElementById("task-label").innerHTML = "확장, 굴곡";
+
+      document.getElementById("code1-label").innerHTML = "제어 노드#1";
+      document.getElementById("code2-label").innerHTML = "제어 노드#1";
+      document.getElementById("code3-wrapper").classList.add("hidden");
+
+      document.getElementById("editor").classList.remove("hidden");
+    } else if (task == "gait") {
+      document.getElementById("code3-wrapper").classList.remove("hidden");
+      document.getElementById("task-input").value = "gait";
+      document.getElementById("task-label").innerHTML = "7미터 걷기";
+
+      document.getElementById("code1-label").innerHTML = "걷기 노드#1";
+      document.getElementById("code2-label").innerHTML = "걷기 노드#2";
+      document.getElementById("code3-label").innerHTML = "걷기 노드#3";
+
+      document.getElementById("editor").classList.add("hidden");
+    }
+  }
+
+  window.updateTask = updateTask;
 </script>
+
 {% endblock %}

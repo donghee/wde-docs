@@ -67,6 +67,7 @@
         </div>
       </dd>
     </div>
+
     <div
       class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
     >
@@ -98,25 +99,31 @@
       </dt>
       <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
         <p class="text-2xl font-semibold text-gray-900">
+          {% if device =='upper' %}
           <a
             class="no-underline hover:underline"
             href="/wearability/{{url}}"
             target="_blank"
-            >{{wearability}}
+          >
+            {{wearability}}
           </a>
+          {% else %} N/A {% endif %}
         </p>
         <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
           <div class="text-sm">
+            {% if device =='upper' %}
             <a
               href="/wearability/{{url}}"
               class="font-medium text-indigo-600 hover:text-indigo-500"
               target="_blank"
               >자세히 보기</a
             >
+            {% endif %}
           </div>
         </div>
       </dd>
     </div>
+
     <div
       class="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
     >
@@ -143,6 +150,7 @@
       </dt>
       <dd class="ml-16 flex items-baseline pb-6 sm:pb-7">
         <p class="text-2xl font-semibold text-gray-900">
+          {% if device =='upper' %}
           <a
             class="no-underline hover:underline"
             href="/interactivity/{{url}}"
@@ -150,15 +158,18 @@
           >
             {{interactivity}}
           </a>
+          {% else %} N/A {% endif %}
         </p>
         <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
           <div class="text-sm">
+            {% if device =='upper' %}
             <a
               href="/interactivity/{{url}}"
               class="font-medium text-indigo-600 hover:text-indigo-500"
               target="_blank"
               >자세히 보기</a
             >
+            {% endif %}
           </div>
         </div>
       </dd>

@@ -91,9 +91,13 @@ def evaluate_device():
     interactivity = r.text
     totalscore = round((float(usability) + float(wearability) + float(interactivity)) / 3, 1)
 
+    if device == "lower": # TODO: use usability score only for lower device
+        totalscore = round(float(usability), 1)
+
     return render_template("result.html", url=url, device=device, body=body, task=task, code=f"code{code}", totalscore=totalscore, usability=usability, wearability=wearability, interactivity=interactivity)
 
 
 if __name__ == "__main__":
     init_fifo()
     app.run(host="0.0.0.0", port=5054, debug=True)
+ 
