@@ -63,9 +63,9 @@ def evaluate_device():
     # start ros launch
     with open(FIFO_TX_FILE, "w") as f:
         if device == "upper":
-            f.write("start upper ")
+            f.write(f"start upper {code}")
         if device == "lower":
-            f.write("start lower ")
+            f.write(f"start lower {code}")
         print(f"start simulation: {device}")
 
     #  ros launch
@@ -81,7 +81,7 @@ def evaluate_device():
         os.system(f"cp /tmp/interaction-upper.csv ~/src/wde-interactivity/interaction_control_node_1.csv")
         os.system(f"cp /tmp/wearability-upper.csv ~/src/wde-wearability/device_1DOF/python/wearability/input.csv")        
     if device == "lower":
-        os.system(f"cp /tmp/lower.csv ~/src/wde-visualization/web/static/{joint}.csv")
+        os.system(f"cp /tmp/visualization-lower.csv ~/src/wde-visualization/web/static/{joint}.csv")
 
     r = requests.get(f"http://localhost/usability/score{url}")
     usability = r.text
